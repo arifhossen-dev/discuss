@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Inertia\Response;
 
 class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
         return inertia('Posts/Index', [
+            'post' => PostResource::make(Post::first()),
             'posts' => PostResource::collection(Post::paginate(10)),
         ]);
     }
