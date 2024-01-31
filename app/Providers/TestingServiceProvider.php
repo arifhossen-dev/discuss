@@ -28,30 +28,17 @@ class TestingServiceProvider extends ServiceProvider
         }
 
         AssertableInertia::macro('hasResource', function (string $key, JsonResource $resource) {
-            $props = $this->toArray()['props'];
-
-            $compiledResource = $resource->response()->getData(true);
-
-            expect($props)
-                ->toHaveKey($key, message: "Key \"{$key}\" not passed as a property to Inertia.")
-                ->and($props[$key])
-                ->toEqual($compiledResource);
+            $this->has($key);
+            expect($this->prop($key))->toEqual($resource->response()->getData(true));
 
             return $this;
         });
 
         AssertableInertia::macro('hasPaginateResource', function (string $key, ResourceCollection $resource) {
-            $props = $this->toArray()['props'];
+            $this->hasResource("{$key}.data", $resource);
+            expect($this->prop($key))->toHaveKeys(['data', 'links', 'meta']);
 
-            $compiledResource = $resource->response()->getData(true);
-
-
-            expect($props)
-                ->toHaveKey($key, message: "Key \"{$key}\" not passed as a property to Inertia.")
-                ->and($props[$key])
-                ->toHaveKeys(['data', 'links', 'meta'])
-                ->data
-                ->toEqual($compiledResource);
+            return $this;
         });
 
         TestResponse::macro('assertHasResource', function (string $key, JsonResource $resource) {
