@@ -15,7 +15,7 @@ class PostController extends Controller
     public function index(): Response
     {
         return inertia('Posts/Index', [
-            'posts' => PostResource::collection(Post::latest()->latest('id')->paginate(10)),
+            'posts' => PostResource::collection(Post::with('user')->latest()->latest('id')->paginate(10)),
         ]);
     }
 
