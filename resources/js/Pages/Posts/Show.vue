@@ -31,10 +31,10 @@ const formattedDate = computed(() => relativeDate(prop.post.created_at));
                 <ul class="divide-y">
                     <li v-for="(comment, index) in comments.data" :key="index" class="px-2 py-4 flex flex-col">
                         <Comment :comment="comment"/>
-                        
+
                     </li>
                 </ul>
-                <Pagination :meta="comments.meta"/>
+                <Pagination :meta="comments.meta" :only="['comments']"/>
             </div>
         </container>
     </AppLayout>
