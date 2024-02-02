@@ -6,10 +6,23 @@ import {computed} from "vue";
 import Pagination from "@/Components/Pagination.vue";
 import {relativeDate} from "@/Utilities/date.js";
 import Comment from "@/Components/Comment.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import {useForm} from "@inertiajs/vue3";
+import TextArea from "@/Components/TextArea.vue";
+import InputError from "@/Components/InputError.vue";
 
 const prop = defineProps(['post', 'comments'])
 
 const formattedDate = computed(() => relativeDate(prop.post.created_at));
+
+const commentForm = useForm({
+    body: '',
+});
+const addComment = () => commentForm.post(route('posts.comments.store', prop.post.id), {
+    preserveScroll: true,
+    onSuccess: () => commentForm.reset(),
+});
 </script>
 
 <template>
@@ -27,6 +40,18 @@ const formattedDate = computed(() => relativeDate(prop.post.created_at));
 
             <div>
                 <h2 class="border-b-4 font-bold text-2xl">Comments</h2>
+
+                <form v-if="$page.props.auth.user" @submit.prevent="addComment">
+                    <div class="mt-3">
+                        <InputLabel for="body" class="sr-only">Comment</InputLabel>
+                        <TextArea id="body" rows="4" placeholder="Type your comment..."
+                                  v-model="commentForm.body"></TextArea>
+                        <InputError :message="commentForm.errors.body"/>
+                    </div>
+
+                    <PrimaryButton type="submit" :disabled="commentForm.processing" class="mt-3">Add Comment
+                    </PrimaryButton>
+                </form>
 
                 <ul class="divide-y">
                     <li v-for="(comment, index) in comments.data" :key="index" class="px-2 py-4 flex flex-col">
