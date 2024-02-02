@@ -10,7 +10,7 @@ defineProps(['comment'])
             <img :src="comment.user.profile_photo_url" class="h-10 wh-10 rounded-full">
         </div>
         <div>
-            <p class="mt-1">{{comment.body}}</p>
+            <p class="mt-1 break-all">{{comment.body}}</p>
             <span class="text-sm text-gray-500">{{ relativeDate(comment.created_at) }} ago by <span
                 class="font-bold">{{ comment.user.name }}</span></span>
         </div>
