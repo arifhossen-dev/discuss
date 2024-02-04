@@ -15,7 +15,7 @@ const canDelete = computed(() => props.comment.user.id === usePage().props.auth.
 <template>
     <div class="sm:flex">
         <div class="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
-            <img :src="comment.user.profile_photo_url" class="h-10 wh-10 rounded-full">
+            <img :alt="comment.user.name" :src="comment.user.profile_photo_url" class="h-10 wh-10 rounded-full">
         </div>
         <div>
             <p class="mt-1 break-all">{{ comment.body }}</p>
