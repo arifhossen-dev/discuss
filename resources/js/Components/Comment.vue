@@ -5,9 +5,7 @@ import {computed} from "vue";
 
 const props = defineProps(['comment'])
 
-const deleteComment = () => router.delete(route('comments.destroy', props.comment.id), {
-    preserveScroll: true,
-})
+const emit = defineEmits(['delete'])
 </script>
 
 <template>
@@ -20,7 +18,7 @@ const deleteComment = () => router.delete(route('comments.destroy', props.commen
             <span class="text-sm text-gray-500">{{ relativeDate(comment.created_at) }} ago by <span
                 class="font-bold">{{ comment.user.name }}</span></span>
             <div v-if="comment.can?.delete" class="mt-1">
-                <form @submit.prevent="deleteComment">
+                <form @submit.prevent="$emit('delete',comment.id)">
                     <button type="submit">Delete</button>
                 </form>
 

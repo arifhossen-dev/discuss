@@ -8,7 +8,7 @@ import {relativeDate} from "@/Utilities/date.js";
 import Comment from "@/Components/Comment.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import {useForm} from "@inertiajs/vue3";
+import {router, useForm} from "@inertiajs/vue3";
 import TextArea from "@/Components/TextArea.vue";
 import InputError from "@/Components/InputError.vue";
 
@@ -23,6 +23,10 @@ const addComment = () => commentForm.post(route('posts.comments.store', prop.pos
     preserveScroll: true,
     onSuccess: () => commentForm.reset(),
 });
+
+const deleteComment = (commentId) => router.delete(route('comments.destroy', {comment: commentId, page: prop.comments.meta.current_page}), {
+    preserveScroll: true,
+})
 </script>
 
 <template>
@@ -55,7 +59,7 @@ const addComment = () => commentForm.post(route('posts.comments.store', prop.pos
 
                 <ul class="divide-y">
                     <li v-for="(comment, index) in comments.data" :key="index" class="px-2 py-4 flex flex-col">
-                        <Comment :comment="comment"/>
+                        <Comment @delete="deleteComment" :comment="comment"/>
 
                     </li>
                 </ul>
