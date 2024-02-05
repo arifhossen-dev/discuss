@@ -8,8 +8,6 @@ const props = defineProps(['comment'])
 const deleteComment = () => router.delete(route('comments.destroy', props.comment.id), {
     preserveScroll: true,
 })
-
-const canDelete = computed(() => props.comment.user.id === usePage().props.auth.user.id);
 </script>
 
 <template>
@@ -21,7 +19,7 @@ const canDelete = computed(() => props.comment.user.id === usePage().props.auth.
             <p class="mt-1 break-all">{{ comment.body }}</p>
             <span class="text-sm text-gray-500">{{ relativeDate(comment.created_at) }} ago by <span
                 class="font-bold">{{ comment.user.name }}</span></span>
-            <div v-if="canDelete" class="mt-1">
+            <div v-if="comment.can?.delete" class="mt-1">
                 <form @submit.prevent="deleteComment">
                     <button type="submit">Delete</button>
                 </form>
