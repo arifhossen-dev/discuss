@@ -8,7 +8,7 @@ use function Pest\Laravel\post;
 beforeEach(function () {
     $this->validData = [
         'title' => 'Test title',
-        'body' => 'This is the test body of the post',
+        'body' => 'This is the test body of the post. This post must have 100 characters to pass the validation rules and not more than 10,100 characters.',
     ];
 });
 
@@ -30,17 +30,13 @@ it('store a post', function () {
 });
 
 it('redirects to the post show page', function () {
-    $user = User::factory()->create();
-
-    actingAs($user)
+    actingAs(User::factory()->create())
         ->post(route('posts.store'), $this->validData)
         ->assertRedirect(route('posts.show', Post::latest('id')->first()));
 });
 
 it('requires valid data', function (array $badData, array|string $errors) {
-    $user = User::factory()->create();
-
-    actingAs($user)
+    actingAs(User::factory()->create())
         ->post(route('posts.store'), [...$this->validData, ...$badData])
         ->assertInvalid($errors);
 })->with([
