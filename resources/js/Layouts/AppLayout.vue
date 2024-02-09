@@ -65,7 +65,7 @@ const menu = [
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <template v-for="(item, index) in menu" :key="item.name">
-                                    <NavLink v-if="item.when ? item.when() : true" :href="item.url"
+                                    <NavLink :key="index" v-if="item.when ? item.when() : true" :href="item.url"
                                         :active="route().current(item.route)">
                                         {{ item.name }}
                                     </NavLink>
@@ -229,7 +229,7 @@ const menu = [
                                         <form @submit.prevent="switchToTeam(team)">
                                             <ResponsiveNavLink as="button">
                                                 <div class="flex items-center">
-                                                    <svg v-if="team.id == $page.props.auth.user.current_team_id"
+                                                    <svg v-if="team.id === $page.props.auth.user.current_team_id"
                                                         class="w-5 h-5 text-green-400 me-2"
                                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                         stroke-width="1.5" stroke="currentColor">
