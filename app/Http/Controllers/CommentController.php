@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function __construct(){
+    public function __construct()
+    {
         $this->authorizeResource(Comment::class);
     }
 
@@ -24,7 +25,8 @@ class CommentController extends Controller
             ->post()->associate($post)
             ->save();
 
-        return to_route('posts.show', $post);
+        return to_route('posts.show', $post)
+            ->banner('Comment has been added.');
     }
 
     /**
@@ -32,11 +34,12 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        $data = $request->validate(['body' => ['required','string','max:2500']]);
+        $data = $request->validate(['body' => ['required', 'string', 'max:2500']]);
 
         $comment->update($data);
 
-        return to_route('posts.show', ['post' => $comment->post_id, 'page' => $request->query('page')]);
+        return to_route('posts.show', ['post' => $comment->post_id, 'page' => $request->query('page')])
+            ->banner('Comment has been updated.');
     }
 
     /**
@@ -46,6 +49,7 @@ class CommentController extends Controller
     {
         $comment->delete();
 
-        return to_route('posts.show', ['post' => $comment->post_id, 'page' => $request->query('page')]);
+        return to_route('posts.show', ['post' => $comment->post_id, 'page' => $request->query('page')])
+            ->banner('Comment has been deleted.');
     }
 }
