@@ -26,14 +26,6 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return inertia('Posts/Create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -48,7 +40,15 @@ class PostController extends Controller
             'user_id' => $request->user()->id,
         ]);
 
-        return to_route('posts.show', $post);
+        return redirect($post->showRoute());
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return inertia('Posts/Create');
     }
 
     /**
@@ -58,10 +58,9 @@ class PostController extends Controller
     {
         $post->load('user');
 
-
         return inertia('Posts/Show', [
-            'post' => fn() => PostResource::make($post),
-            'comments' => fn() => CommentResource::collection(
+            'post' => fn () => PostResource::make($post),
+            'comments' => fn () => CommentResource::collection(
                 $post->comments()
                     ->with('user')
                     ->latest()

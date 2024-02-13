@@ -24,13 +24,18 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    function comments(): HasMany
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
 
     public function title(): Attribute
     {
-        return Attribute::set(fn($value) => Str::title($value));
+        return Attribute::set(fn ($value) => Str::title($value));
+    }
+
+    public function showRoute(array $parameters = [])
+    {
+        return route('posts.show', [$this, Str::slug($this->title), ...$parameters]);
     }
 }
