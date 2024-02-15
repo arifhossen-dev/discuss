@@ -2,6 +2,7 @@
 
 use App\Models\Comment;
 use App\Models\User;
+
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\delete;
 
@@ -23,7 +24,7 @@ it('redirects to the post show ', function () {
 
     actingAs($comment->user)
         ->delete(route('comments.destroy', $comment))
-        ->assertRedirect(route('posts.show', $comment->post_id));
+        ->assertRedirect($comment->post->showRoute());
 });
 
 it('prevents deleting a comment you didnt create', function () {
@@ -51,5 +52,5 @@ it('redirects to the post show page with the page query parameter', function () 
 
     actingAs($comment->user)
         ->delete(route('comments.destroy', ['comment' => $comment, 'page' => 2]))
-        ->assertRedirect(route('posts.show', ['post' => $comment->post_id, 'page' => 2]));
+        ->assertRedirect($comment->post->showRoute(['page' => 2]));
 });

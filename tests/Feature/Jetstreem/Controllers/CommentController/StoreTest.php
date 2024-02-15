@@ -3,6 +3,7 @@
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
+
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\post;
 
@@ -27,7 +28,6 @@ it('can store a comment', function () {
     ]);
 });
 
-
 it('redirects to the post show page', function () {
     $post = Post::factory()->create();
 
@@ -35,7 +35,7 @@ it('redirects to the post show page', function () {
         ->post(route('posts.comments.store', $post), [
             'body' => 'This is a comment',
         ])
-        ->assertRedirect(route('posts.show', $post));
+        ->assertRedirect($post->showRoute());
 });
 
 it('requires a valid body', function ($value) {
