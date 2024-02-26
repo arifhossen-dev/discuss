@@ -7,6 +7,7 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Container from "@/Components/Container.vue";
 import TextArea from "@/Components/TextArea.vue";
+import MarkdownEditor from "@/Components/MarkdownEditor.vue";
 
 const form = useForm({
     title: '',
@@ -25,16 +26,17 @@ const createPost = () => form.post(route('posts.store'));
                 <form @submit.prevent="createPost">
                     <div class="mt-3">
                         <InputLabel for="title">Title</InputLabel>
-                        <TextInput class="w-full" id="title" v-model="form.title" placeholder="Enter title here..."/>
+                        <TextInput id="title" v-model="form.title" class="w-full" placeholder="Enter title here..."/>
                         <InputError :message="form.errors.title"/>
                     </div>
                     <div class="mt-3">
                         <InputLabel for="body">Body</InputLabel>
-                        <TextArea id="body" v-model="form.body" rows="8" class="w-full rounded"></TextArea>
+                        <MarkdownEditor v-model="form.body"/>
+                        <TextArea id="body" v-model="form.body" class="w-full rounded" rows="8"></TextArea>
                         <InputError :message="form.errors.body"/>
                     </div>
 
-                    <PrimaryButton type="submit" :disabled="form.processing" class="mt-3">Submit</PrimaryButton>
+                    <PrimaryButton :disabled="form.processing" class="mt-3" type="submit">Submit</PrimaryButton>
                 </form>
 
             </div>
