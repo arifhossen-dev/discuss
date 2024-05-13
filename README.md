@@ -28,3 +28,17 @@ cp .env.example .env
 
 php artisan key:generate
 ```
+
+Prepare your database and run the migrations:
+
+```bash
+touch database/database.sqlite
+
+php artisan migrate --seed
+```
+
+Finally, start the development server:
+
+```bash
+php artisan serve
+```
