@@ -1,2 +1,2 @@
 # About
-Discuss is a Laravel, Inertia and Vue application buid in TDD aproch.
+Discuss is a user interactivity discusstion and Blogin application build with Laravel, Inertia and Vue in TDD aproch.
