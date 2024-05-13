@@ -15,3 +15,8 @@ git clone https://github.com/arifhossen-dev/discuss.git
 
 cd discuss
 ```
+Next, install the dependencies using [Composer](https://getcomposer.org):
+
+```bash
+composer install
+```
