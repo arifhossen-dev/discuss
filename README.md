@@ -20,3 +20,11 @@ Next, install the dependencies using [Composer](https://getcomposer.org):
 ```bash
 composer install
 ```
+
+After that, set up your `.env` file:
+
+```bash
+cp .env.example .env
+
+php artisan key:generate
+```
