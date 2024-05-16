@@ -1,4 +1,4 @@
-# About
+# About Discuss
 Discuss is a user interactivity discusstion and Blogin application build with Laravel, Inertia and Vue in TDD aproch.
 
 ## Installation
@@ -15,7 +15,7 @@ git clone https://github.com/arifhossen-dev/discuss.git
 
 cd discuss
 ```
-Next, install the dependencies using [Composer](https://getcomposer.org):
+Next, install the dependencies using [Composer](https://getcomposer.org) and [NPM](https://npmjs.com):
 
 ```bash
 composer install
