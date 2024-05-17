@@ -37,6 +37,11 @@ touch database/database.sqlite
 php artisan migrate --seed
 ```
 
+Ignation your NPM server
+```
+npm run dev
+```
+
 Finally, start the development server:
 
 ```bash
